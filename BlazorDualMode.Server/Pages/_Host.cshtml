@@ -30,11 +30,15 @@
     <app>
         @(await Html.RenderComponentAsync<Client.App>(RenderMode.ServerPrerendered))
     </app>
-
+    <script type="text/javascript">
+        if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+            document.write('<script src="js/blazor.polyfill.min.js"><\/script>');
+        }
+    </script>
     <script id="blazorMode"></script>
     <script>
         var windowLocationSearch = window.location.search;
-        document.getElementById("blazorMode").src = windowLocationSearch.indexOf("mode=server") > -1 || !browserSupportsWasm  ? "_framework/blazor.server.js" : "_framework/blazor.webassembly.js";
+        document.getElementById("blazorMode").src = windowLocationSearch.indexOf("mode=server") > -1 || !browserSupportsWasm ? "_framework/blazor.server.js" : "_framework/blazor.webassembly.js";
     </script>
 </body>
 </html>
